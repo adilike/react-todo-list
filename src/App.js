@@ -25,24 +25,33 @@ class App extends Component {
     e.preventDefault();
     const newItem = { id: this.state.id, title: this.state.item };
     const updatedItems = [...this.state.items, newItem];
-    this.setState(
-      {
-        items: updatedItems,
-        item: "",
-        id: uuidv4(),
-        editItem: false,
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      items: updatedItems,
+      item: "",
+      id: uuidv4(),
+      editItem: false,
+    });
   };
   clearList = () => {
-    console.log("clearList");
+    this.setState({
+      items: [],
+    });
   };
   handleDelete = (id) => {
-    console.log(`handle delete ${id}`);
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    this.setState({
+      items: filteredItems,
+    });
   };
   handleEdit = (id) => {
-    console.log(`handle Edit ${id}`);
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+    const selectedItem = this.state.items.find((item) => item.id === id);
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      id: id,
+      editItem: true,
+    });
   };
 
   render() {
@@ -55,11 +64,11 @@ class App extends Component {
               item={this.state.item}
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
-              editItem={this.handleEdit}
+              editItem={this.state.editItem}
             />
             <Todolist
               items={this.state.items}
-              clearList={this.clearList}
+              clearlist={this.clearList}
               handleDelete={this.handleDelete}
               handleEdit={this.handleEdit}
             />
