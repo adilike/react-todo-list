@@ -38,7 +38,7 @@ class App extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-10 mx-aoto col-md-8 mt-5">
+          <div className="col-10 mx-auto col-md-8 mt-5">
             <h3 className="text-capitalize text-center">todo intput</h3>
             <Todoinput
               item={this.state.item}
